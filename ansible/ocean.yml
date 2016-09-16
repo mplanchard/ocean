@@ -1,0 +1,33 @@
+---
+
+# Root tasks
+
+- hosts: ocean
+  become: yes
+  tasks:
+  - name: update apt cache
+    apt: update_cache=yes
+  - name: install aptitude
+    apt: name=aptitude state=latest
+  - name: do a security upgrade
+    command: unattended-upgrades
+  - name: install python3-virtualenv
+    apt: name=python3-virtualenv state=latest
+  - name: isntall python3-pip
+    apt: name=python3-pip state=latest
+  - name: install postgresql
+    apt: name=postgresql state=latest
+  - name: install nginx
+    apt: name=nginx state=latest
+    notify:
+      - restart nginx
+  - name: add postgresql user
+    user:
+      - name: postgres
+        system: yes
+        state: present
+        createhome: no
+        groups: database,
+  handlers:
+  - name: restart nginx
+    service: name=nginx state=restarted
