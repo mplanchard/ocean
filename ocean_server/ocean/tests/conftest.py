@@ -23,12 +23,12 @@ import ocean.tests.constants as tc
 log = logging.getLogger(__name__)
 
 
-CONFTEST_DIR = path.dirname(path.realpath(__file__))
-DATA_DIR = path.join(CONFTEST_DIR, tc.PG_DATA_DIR)
+CONFIG_DIR = path.dirname(path.realpath(__file__))
+DATA_DIR = path.join(CONFIG_DIR, tc.PG_DATA_DIR)
 
 
 def source_test_environ():
-    """Source the test environment"""
+    """Source the test environment from the environment path"""
     log.debug('source_test_environ()')
     root_dir = path.dirname(path.realpath(oc.__file__))
     config_path = path.abspath(path.join(root_dir, oc.ENVIRONMENT_PATH))
@@ -66,7 +66,7 @@ def teardown_db(db_name):
 
 
 @pytest.yield_fixture(autouse='true', scope='session')
-def test_db():
+def db():
     """Instantiate a test database"""
     source_test_environ()
     db_proc = start_db_server()
@@ -80,3 +80,7 @@ def test_db():
         shutil.rmtree(DATA_DIR)
     except FileNotFoundError:
         pass
+
+
+
+

@@ -1,0 +1,7 @@
+---
+component:
+  type: ocean.container:OceanContainer
+  components:
+    web:
+      ip: '127.0.0.1'
+      port: 4444
