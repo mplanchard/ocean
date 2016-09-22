@@ -14,4 +14,3 @@ from kyoukai import Blueprint
 log = logging.getLogger(__name__)
 
 
-blueprint = Blueprint('ocean_v1', url_prefix='v1')
